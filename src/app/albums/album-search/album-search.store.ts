@@ -7,26 +7,26 @@ import {
   withComputed,
   withHooks,
   withMethods,
-  withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { setAllEntities, withEntities } from '@ngrx/signals/entities';
 import { tapResponse } from '@ngrx/operators';
-import { SortOrder } from '@/shared/models/sort-order.model';
+import { toSortOrder } from '@/shared/models/sort-order.model';
 import {
   setError,
   setFulfilled,
   setPending,
   withRequestStatus,
 } from '@/shared/state/request-status.feature';
+import { withQueryParams } from '@/shared/state/route/query-params.feature';
 import { Album, searchAlbums, sortAlbums } from '@/albums/album.model';
 import { AlbumsService } from '@/albums/albums.service';
 
 export const AlbumSearchStore = signalStore(
   withEntities<Album>(),
-  withState({
-    query: '',
-    order: 'asc' as SortOrder,
+  withQueryParams({
+    query: (param) => param ?? '',
+    order: toSortOrder,
   }),
   withRequestStatus(),
   withComputed(({ entities, query, order, isPending }) => {
@@ -48,12 +48,6 @@ export const AlbumSearchStore = signalStore(
       albumsService = inject(AlbumsService),
       snackBar = inject(MatSnackBar),
     ) => ({
-      updateQuery(query: string): void {
-        patchState(store, { query });
-      },
-      updateOrder(order: SortOrder): void {
-        patchState(store, { order });
-      },
       loadAllAlbums: rxMethod<void>(
         pipe(
           tap(() => patchState(store, setPending())),
