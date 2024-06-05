@@ -4508,8 +4508,3 @@ yargs@17.7.2, yargs@^17.0.1, yargs@^17.2.1:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
-
-zone.js@0.14.6:
-  version "0.14.6"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.14.6.tgz#9a74284f4812b807c97d942e78166cb2da8b5614"
-  integrity sha512-vyRNFqofdaHVdWAy7v3Bzmn84a1JHWSjpuTZROT/uYn8I3p2cmo7Ro9twFmYRQDPhiYOV7QLk0hhY4JJQVqS6Q==
